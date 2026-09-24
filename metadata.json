@@ -1,0 +1,6 @@
+{
+  "name": "AI Smart Safety Helmet",
+  "description": "Advanced AI-powered motorcycle safety helmet system with 360° road object detection, HUD interface, collision prediction, and voice assistance.",
+  "requestFramePermissions": ["camera", "microphone", "geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
