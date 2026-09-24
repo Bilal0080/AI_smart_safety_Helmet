@@ -14,6 +14,7 @@ import { BrakeFailureModal } from "./components/BrakeFailureModal";
 import { EmergencySOSModal } from "./components/EmergencySOSModal";
 import { TelemetryMaintenanceModal } from "./components/TelemetryMaintenanceModal";
 import { OfflineMountainWeather } from "./components/OfflineMountainWeather";
+import { SafetyProgramModal } from "./components/SafetyProgramModal";
 import {
   PRESET_SCENARIOS,
   getScenarioObjects,
@@ -44,12 +45,22 @@ export default function App() {
   const [isOpenBrakeFailure, setIsOpenBrakeFailure] = useState<boolean>(false);
   const [isOpenMaintenance, setIsOpenMaintenance] = useState<boolean>(false);
   const [isOpenWeather, setIsOpenWeather] = useState<boolean>(false);
+  const [isOpenSafetyProgram, setIsOpenSafetyProgram] = useState<boolean>(false);
 
   // Injected temporary hazard
   const [injectedHazard, setInjectedHazard] = useState<DetectedRoadObject | null>(null);
 
   // Interaction Log state for last 5 voice-triggered actions and safety alerts
   const [interactionLogs, setInteractionLogs] = useState<InteractionLogEntry[]>([
+    {
+      id: "log-init-0",
+      type: "SAFETY_ALERT",
+      text: "Toyota Road Safety Program Active",
+      detail: "Prepared by Muhammad Bilal — Vision Zero",
+      timestamp: new Date().toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" }),
+      riskLevel: "GREEN",
+      iconType: "alert",
+    },
     {
       id: "log-init-1",
       type: "SAFETY_ALERT",
@@ -323,6 +334,7 @@ export default function App() {
         }}
         onOpenMaintenance={() => setIsOpenMaintenance(true)}
         onOpenWeather={() => setIsOpenWeather(true)}
+        onOpenSafetyProgram={() => setIsOpenSafetyProgram(true)}
       />
 
       {/* Main Rider Cockpit / HUD Dashboard */}
@@ -392,6 +404,37 @@ export default function App() {
             &bull; AI Optical Flow 120 FPS &bull; Low Latency Active
           </div>
         </div>
+
+        {/* Toyota Road Safety Awareness Program Institutional Footer Banner */}
+        <footer className="w-full p-3.5 sm:p-4 rounded-xl bg-gradient-to-r from-red-950/50 via-slate-900/90 to-slate-950 border border-red-800/40 shadow-lg flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-lg bg-red-600/20 border border-red-500/50 flex flex-col items-center justify-center text-red-400 shrink-0">
+              <span className="text-[10px] font-black leading-tight">TOYOTA</span>
+              <span className="text-[8px] font-mono tracking-tighter opacity-80 leading-none">SAFETY</span>
+            </div>
+            <div>
+              <div className="flex items-center gap-2 flex-wrap">
+                <span className="font-extrabold text-white tracking-wide uppercase text-sm">
+                  Toyota Road Safety Awareness Program
+                </span>
+                <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-red-600 text-white tracking-wider">
+                  VISION ZERO INITIATIVE
+                </span>
+              </div>
+              <p className="text-slate-300 text-xs font-mono mt-0.5">
+                Prepared by <strong className="text-cyan-400 font-bold">Muhammad Bilal</strong> &bull; AI Road Object Detection, Blind Spot Warning, & Collision Mitigation
+              </p>
+            </div>
+          </div>
+          <button
+            onClick={() => setIsOpenSafetyProgram(true)}
+            className="w-full sm:w-auto px-4 py-2 rounded-lg bg-red-600 hover:bg-red-500 text-white font-bold font-mono text-xs transition-all shadow-md shrink-0 flex items-center justify-center gap-1.5 cursor-pointer hover:scale-105 active:scale-95"
+            title="Read about the Toyota Road Safety Awareness Program prepared by Muhammad Bilal"
+          >
+            <span>Program Charter</span>
+            <span>&rarr;</span>
+          </button>
+        </footer>
       </main>
 
       {/* Emergency Modals */}
@@ -416,6 +459,11 @@ export default function App() {
         isOpen={isOpenWeather}
         onClose={() => setIsOpenWeather(false)}
         weather={currentScenario.weather}
+      />
+
+      <SafetyProgramModal
+        isOpen={isOpenSafetyProgram}
+        onClose={() => setIsOpenSafetyProgram(false)}
       />
     </div>
   );

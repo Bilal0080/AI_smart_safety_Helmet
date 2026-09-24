@@ -109,6 +109,17 @@ export const HelmetHUD: React.FC<HelmetHUDProps> = ({
         <div className="absolute inset-x-8 bottom-2 h-[1px] bg-gradient-to-r from-transparent via-current to-transparent opacity-40" />
       </div>
 
+      {/* Visor Top Brand/Program Banner */}
+      <div className="relative z-10 flex items-center justify-between pb-1 mb-1 border-b border-current/15 text-[9px] font-mono tracking-widest uppercase opacity-80">
+        <div className="flex items-center gap-1.5">
+          <span className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+          <span className="font-bold text-red-400">TOYOTA ROAD SAFETY AWARENESS PROGRAM</span>
+        </div>
+        <div className="text-right">
+          <span>PREPARED BY: <strong className="text-current font-bold">MUHAMMAD BILAL</strong> // SYSTEM ACTIVE</span>
+        </div>
+      </div>
+
       {/* TOP HUD SECTION: Speed, Speed Limit, Navigation, Traffic Light */}
       <div className="relative z-10 flex items-start justify-between">
         {/* Left: Speedometer & Following Distance */}

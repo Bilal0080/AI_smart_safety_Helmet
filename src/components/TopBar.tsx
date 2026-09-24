@@ -17,6 +17,7 @@ import {
   Wrench,
   CloudSun,
   Navigation,
+  Award,
 } from "lucide-react";
 import { RiskLevel, TelemetryData } from "../types";
 
@@ -31,6 +32,7 @@ interface TopBarProps {
   onTriggerBrakeFailure: () => void;
   onOpenMaintenance: () => void;
   onOpenWeather: () => void;
+  onOpenSafetyProgram: () => void;
 }
 
 export const TopBar: React.FC<TopBarProps> = ({
@@ -44,6 +46,7 @@ export const TopBar: React.FC<TopBarProps> = ({
   onTriggerBrakeFailure,
   onOpenMaintenance,
   onOpenWeather,
+  onOpenSafetyProgram,
 }) => {
   const getRiskBadge = () => {
     switch (riskLevel) {
@@ -88,22 +91,32 @@ export const TopBar: React.FC<TopBarProps> = ({
     >
       {/* Brand & System Mode */}
       <div className="flex items-center gap-3">
-        <div className="relative flex items-center justify-center w-10 h-10 rounded-lg bg-cyan-950/80 border border-cyan-500/40 text-cyan-400 shadow-inner">
+        <div className="relative flex items-center justify-center w-10 h-10 rounded-lg bg-red-950/60 border border-red-500/50 text-red-400 shadow-inner">
           <ShieldAlert className="w-6 h-6" />
           <span className="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
         </div>
         <div>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 flex-wrap">
             <h1 className="text-base font-black tracking-wider uppercase">
               AI Smart Safety Helmet
             </h1>
             <span className="px-1.5 py-0.5 text-[10px] font-mono font-bold uppercase rounded bg-cyan-950 text-cyan-300 border border-cyan-700/50">
               MK-IV HUD
             </span>
+            <button
+              onClick={onOpenSafetyProgram}
+              className="px-2 py-0.5 text-[10px] font-mono font-bold uppercase rounded bg-red-950/80 hover:bg-red-900 text-red-200 border border-red-600/70 flex items-center gap-1 transition-all cursor-pointer shadow-sm hover:scale-105"
+              title="Toyota Road Safety Awareness Program — Prepared by Muhammad Bilal"
+            >
+              <Award className="w-3 h-3 text-red-400" />
+              <span>Toyota Road Safety Program</span>
+            </button>
           </div>
-          <p className="text-xs text-slate-400 flex items-center gap-1.5 font-mono">
+          <p className="text-xs text-slate-400 flex items-center gap-1.5 font-mono flex-wrap">
+            <span className="text-cyan-300 font-semibold">Prepared by Muhammad Bilal</span>
+            <span className="text-slate-600">&bull;</span>
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" />
-            360° Vision AI Active &bull; Latency: {telemetry.latencyMs}ms &bull; 4x Cams Online
+            <span>360° Vision AI Active &bull; Latency: {telemetry.latencyMs}ms</span>
           </p>
         </div>
       </div>
